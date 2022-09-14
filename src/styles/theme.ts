@@ -9,5 +9,13 @@ export const theme = extendTheme({
       },
     },
   },
-  colors: {},
+  colors: {
+    gray: {
+      "50": "#EFEFEF",
+      "500": "#969696",
+    },
+    orange: {
+      "50": "#ED8E53",
+    },
+  },
 });
