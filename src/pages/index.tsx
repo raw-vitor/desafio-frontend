@@ -11,7 +11,9 @@ const Home: NextPage = () => {
       m="4"
       bg="gray.50"
     >
-      <Text p="6">Simulador de Investimentos</Text>
+      <Text p="6" fontWeight="bold" fontSize="24px">
+        Simulador de Investimentos
+      </Text>
       <Flex w="full" h="full" justify="space-around">
         <Simulator />
         <Flex>

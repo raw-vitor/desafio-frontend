@@ -1,106 +1,119 @@
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  Flex,
-  FormControl,
-  Input,
-  Text,
-  useBoolean,
-} from "@chakra-ui/react";
+import { Button, Flex, FormControl, Input, Text } from "@chakra-ui/react";
+import { ToggleButton } from "../ToggleButton";
 
 export const Simulator = () => {
-  const [btnActive, setBtnActive] = useBoolean();
+  const fontSize = "14px";
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   return (
     <Flex direction="column">
-      <Text>Simulador</Text>
+      <Text fontWeight="bold" fontSize="18px">
+        Simulador
+      </Text>
       <form onSubmit={handleSubmit((data) => console.log(data))}>
-        <FormControl>
-          <Text>Rendimento</Text>
+        <Flex>
+          <Flex direction="column">
+            <FormControl>
+              <Text fontSize={fontSize}>Rendimento</Text>
+              <ToggleButton />
+            </FormControl>
+            <FormControl>
+              <Text fontSize={fontSize}>Aporte inicial</Text>
+              <Input
+                type="text"
+                variant="flushed"
+                bg="transparent"
+                borderBottomColor="black"
+                {...register("inicialContribution")}
+              />
+            </FormControl>
+            <FormControl>
+              <Text fontSize={fontSize}>Prazo(em meses)</Text>
+              <Input
+                type="number"
+                variant="flushed"
+                bg="transparent"
+                borderBottomColor="black"
+                {...register("deadline")}
+              />
+            </FormControl>
+            <FormControl>
+              <Text fontSize={fontSize}>IPCA(ao ano)</Text>
+              <Input
+                type="text"
+                variant="flushed"
+                bg="transparent"
+                borderBottomColor="black"
+                {...register("ipca")}
+              />
+            </FormControl>
+          </Flex>
+          <Flex direction="column" ml="9">
+            <FormControl>
+              <Text fontSize={fontSize}>Tipo de indexação</Text>
+              <ToggleButton />
+            </FormControl>
+            <FormControl>
+              <Text fontSize={fontSize}>Aporte Mensal</Text>
+              <Input
+                type="text"
+                variant="flushed"
+                bg="transparent"
+                borderBottomColor="black"
+                {...register("monthlContribution")}
+              />
+            </FormControl>
+            <FormControl>
+              <Text fontSize={fontSize}>Rentabilidade</Text>
+              <Input
+                type="text"
+                variant="flushed"
+                bg="transparent"
+                borderBottomColor="black"
+                {...register("profitability")}
+              />
+            </FormControl>
+            <FormControl>
+              <Text fontSize={fontSize}>CDI(ao ano)</Text>
+              <Input
+                type="text"
+                variant="flushed"
+                bg="transparent"
+                borderBottomColor="black"
+                {...register("cdi")}
+              />
+            </FormControl>
+          </Flex>
+        </Flex>
+        <Flex justify="space-around" mt="6">
           <Button
-            _hover={{ bg: "orange.50" }}
-            colorScheme="orange"
+            size="lg"
             border="1px solid"
-            borderRightRadius="0"
-            color={btnActive ? "white" : "black"}
-            bg={btnActive ? "orange.50" : "transparent"}
-            onClick={setBtnActive.toggle}
+            h="45px"
+            w="full"
+            mx="2"
+            onClick={() => reset()}
           >
-            Bruto
+            Limpar Campos
           </Button>
           <Button
-            _hover={{ bg: "orange.50" }}
-            colorScheme="orange"
-            border="1px solid"
-            borderLeftRadius="0"
-            color={!btnActive ? "white" : "black"}
-            bg={!btnActive ? "orange.50" : "transparent"}
-            onClick={setBtnActive.toggle}
+            size="lg"
+            p="5"
+            bg="orange.50"
+            h="45px"
+            w="full"
+            mx="2"
+            type="submit"
           >
-            Líquido
+            Simular
           </Button>
-        </FormControl>
-        <FormControl>
-          <Text>Aporte inicial</Text>
-          <Input
-            type="text"
-            variant="flushed"
-            borderBottomColor="black"
-            {...register("inicialContribution")}
-          />
-        </FormControl>
-        <FormControl>
-          <Text>Prazo(em meses)</Text>
-          <Input
-            type="number"
-            variant="flushed"
-            borderBottomColor="black"
-            {...register("deadline")}
-          />
-        </FormControl>
-        <FormControl>
-          <Text>IPCA(ao ano)</Text>
-          <Input
-            type="text"
-            variant="flushed"
-            bg="transparent"
-            borderBottomColor="black"
-            {...register("ipca")}
-          />
-        </FormControl>
-        <FormControl>
-          <Text>Aporte Mensal</Text>
-          <Input
-            type="text"
-            variant="flushed"
-            borderBottomColor="black"
-            {...register("monthlContribution")}
-          />
-        </FormControl>
-        <FormControl>
-          <Text>Rentabilidade</Text>
-          <Input
-            type="text"
-            variant="flushed"
-            borderBottomColor="black"
-            {...register("profitability")}
-          />
-        </FormControl>
-        <FormControl>
-          <Text>CDI(ao ano)</Text>
-          <Input
-            type="text"
-            variant="flushed"
-            borderBottomColor="black"
-            {...register("cdi")}
-          />
-        </FormControl>
-        <Button type="submit">Simular</Button>
+        </Flex>
       </form>
     </Flex>
   );
