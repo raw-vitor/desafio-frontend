@@ -1,5 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import { Simulator } from "../components/simulator/Simulator";
 
 const Home: NextPage = () => {
   return (
@@ -12,9 +13,7 @@ const Home: NextPage = () => {
     >
       <Text p="6">Simulador de Investimentos</Text>
       <Flex w="full" h="full" justify="space-around">
-        <Flex>
-          <Text>Simulador</Text>
-        </Flex>
+        <Simulator />
         <Flex>
           <Text>Resultado da Simulação</Text>
         </Flex>
