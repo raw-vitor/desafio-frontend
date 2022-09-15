@@ -23,7 +23,7 @@ export const Simulator = () => {
           <Flex direction="column">
             <FormControl>
               <Text fontSize={fontSize}>Rendimento</Text>
-              <ToggleButton />
+              <ToggleButton labels={["Bruto", "Líquido"]} />
             </FormControl>
             <FormControl>
               <Text fontSize={fontSize}>Aporte inicial</Text>
@@ -53,13 +53,14 @@ export const Simulator = () => {
                 bg="transparent"
                 borderBottomColor="black"
                 {...register("ipca")}
+                value={`${indicators && indicators[1].valor}%`}
               />
             </FormControl>
           </Flex>
           <Flex direction="column" ml="9">
             <FormControl>
               <Text fontSize={fontSize}>Tipo de indexação</Text>
-              <ToggleButton />
+              <ToggleButton labels={["Pré", "Pós", "Fixado"]} />
             </FormControl>
             <FormControl>
               <Text fontSize={fontSize}>Aporte Mensal</Text>
@@ -89,6 +90,7 @@ export const Simulator = () => {
                 bg="transparent"
                 borderBottomColor="black"
                 {...register("cdi")}
+                value={`${indicators && indicators[0].valor}%`}
               />
             </FormControl>
           </Flex>
