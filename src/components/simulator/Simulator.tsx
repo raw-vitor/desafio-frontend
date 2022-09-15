@@ -60,7 +60,7 @@ export const Simulator = () => {
           <Flex direction="column" ml="9">
             <FormControl>
               <Text fontSize={fontSize}>Tipo de indexação</Text>
-              <ToggleButton labels={["Pré", "Pós", "Fixado"]} />
+              <ToggleButton labels={["PRÉ", "POS", "FIXADO"]} />
             </FormControl>
             <FormControl>
               <Text fontSize={fontSize}>Aporte Mensal</Text>
@@ -99,20 +99,24 @@ export const Simulator = () => {
           <Button
             size="lg"
             border="1px solid"
-            h="45px"
             w="full"
             mx="2"
             onClick={() => reset()}
           >
-            Limpar Campos
+            Limpar campos
           </Button>
           <Button
             size="lg"
             p="5"
             bg="orange.50"
-            h="45px"
             w="full"
             mx="2"
+            _disabled={{
+              bg: "gray.500",
+              cursor: "not-allowed",
+              pointerEvents: "none",
+            }}
+            _hover={{ bg: "orange.500" }}
             type="submit"
           >
             Simular
