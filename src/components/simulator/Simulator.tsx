@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import { Button, Flex, FormControl, Input, Text } from "@chakra-ui/react";
 import { ToggleButton } from "../ToggleButton";
+import { useIndicators } from "../../services/react-query/queries/useIndicators";
 
 export const Simulator = () => {
+  const { indicators } = useIndicators();
   const fontSize = "14px";
   const {
     register,
