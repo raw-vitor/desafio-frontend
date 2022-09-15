@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { Button, Flex, FormControl, Input, Text } from "@chakra-ui/react";
 import { ToggleButton } from "../ToggleButton";
 import { useIndicators } from "../../services/react-query/queries/useIndicators";
+import { useMoney } from "../../hooks/useMoneyMask";
 
 export const Simulator = () => {
   const { indicators } = useIndicators();
@@ -27,13 +28,18 @@ export const Simulator = () => {
             </FormControl>
             <FormControl>
               <Text fontSize={fontSize}>Aporte inicial</Text>
-              <Input
-                type="text"
-                variant="flushed"
-                bg="transparent"
-                borderBottomColor="black"
-                {...register("inicialContribution")}
-              />
+              <Flex align="center">
+                <Input
+                  type="string"
+                  variant="flushed"
+                  bg="transparent"
+                  borderBottomColor="black"
+                  {...register("inicialContribution")}
+                  onChange={(e) =>
+                    (e.currentTarget.value = useMoney(e.currentTarget.value))
+                  }
+                />
+              </Flex>
             </FormControl>
             <FormControl>
               <Text fontSize={fontSize}>Prazo(em meses)</Text>
@@ -70,6 +76,9 @@ export const Simulator = () => {
                 bg="transparent"
                 borderBottomColor="black"
                 {...register("monthlContribution")}
+                onChange={(e) =>
+                  (e.currentTarget.value = useMoney(e.currentTarget.value))
+                }
               />
             </FormControl>
             <FormControl>
