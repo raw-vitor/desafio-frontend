@@ -1,5 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import { IChart } from "../components/IChart";
 import { SimulationResult } from "../components/SimulationResult";
 import { Simulator } from "../components/simulator/Simulator";
 import { ToggleBtnProvider } from "../context/ToggleContext";
@@ -25,8 +26,11 @@ const Home: NextPage = () => {
         <ToggleBtnProvider>
           <Simulator />
         </ToggleBtnProvider>
-        <Flex justify="center" mt="2">
+        <Flex justify="center" mt="2" direction="column">
           <SimulationResult />
+          <Flex>
+            <IChart />
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
