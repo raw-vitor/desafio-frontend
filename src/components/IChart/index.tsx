@@ -48,27 +48,26 @@ export const IChart = () => {
       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       datasets: [
         {
-          data: cAporte,
-          backgroundColor: ["rgb(237, 142, 83)"],
-        },
-        {
           data: sAporte,
           backgroundColor: ["rgb(0,0,0)"],
+        },
+        {
+          data: cAporte,
+          backgroundColor: ["rgb(237, 142, 83)"],
         },
       ],
     });
     setCharOptions({
       Responsive: true,
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true },
+      },
       plugins: {
         legend: {
           display: false,
           position: "left",
           labels: {},
-        },
-      },
-      options: {
-        scales: {
-          yAxes: [{ ticks: { title: "a" } }],
         },
       },
     });
