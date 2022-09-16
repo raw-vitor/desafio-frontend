@@ -15,6 +15,7 @@ import * as yup from "yup";
 import { useSimulations } from "../../services/react-query/queries/useSimulations";
 import { useContext } from "react";
 import { ToggleBtnContext } from "../../context/ToggleContext";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 export type SignInFormType = {
   yieldBtn: string;
@@ -83,15 +84,18 @@ export const Simulator = () => {
     : "Erro ao buscar dados";
 
   return (
-    <Flex direction="column" align="center" mt={[8, 8, 0]}>
-      <Text mr="auto" fontWeight="bold" fontSize="23px">
-        Simulador
-      </Text>
+    <Flex direction="column" align="center" my={[8, 8, 0]}>
       <form onSubmit={handleSubmit(handleSignIn)}>
+        <Text mr="auto" fontWeight="bold" fontSize="23px">
+          Simulador
+        </Text>
         <Flex>
           <Flex direction="column" mb="2">
             <FormControl mb={marginBottonInputs}>
-              <Text fontSize={fontSize}>Rendimento</Text>
+              <Flex justify="space-between" mb="1">
+                <Text fontSize={fontSize}>Rendimento</Text>
+                <AiOutlineInfoCircle />
+              </Flex>
               <ToggleButton items={yieldButtons} type="yield" />
             </FormControl>
             <FormControl
@@ -145,7 +149,10 @@ export const Simulator = () => {
           </Flex>
           <Flex direction="column" ml="9" mb="2">
             <FormControl mb={marginBottonInputs}>
-              <Text fontSize={fontSize}>Tipo de indexação</Text>
+              <Flex justify="space-between" mb="1">
+                <Text fontSize={fontSize}>Tipo de indexação</Text>
+                <AiOutlineInfoCircle />
+              </Flex>
               <ToggleButton items={indexingButtons} type="indexingType" />
             </FormControl>
             <FormControl

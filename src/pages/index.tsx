@@ -8,13 +8,12 @@ const Home: NextPage = () => {
   return (
     <Flex
       align="center"
-      justify="center"
       direction="column"
-      h="100vh"
+      minH="100vh"
       bg="gray.50"
-      p={["2", "8"]}
+      p={["2", "2"]}
     >
-      <Text p="6" fontWeight="bold" fontSize="25px">
+      <Text p="2" fontWeight="bold" fontSize="25px">
         Simulador de Investimentos
       </Text>
       <Flex
@@ -26,7 +25,7 @@ const Home: NextPage = () => {
         <ToggleBtnProvider>
           <Simulator />
         </ToggleBtnProvider>
-        <Flex>
+        <Flex justify="center" mt="2">
           <SimulationResult />
         </Flex>
       </Flex>

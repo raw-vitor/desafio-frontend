@@ -15,7 +15,7 @@ export const SimulationResult = () => {
   )[0];
 
   return (
-    <Flex direction="column">
+    <Flex direction="column" align="center">
       <Text fontSize="23px" fontWeight="bold">
         Resultado da Simulação
       </Text>
