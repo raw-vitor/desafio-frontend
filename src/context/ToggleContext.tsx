@@ -5,6 +5,7 @@ type ToggleBtnContextType = {
   indexing: string;
   setYieldBtn: (data: string) => void;
   setIndexing: (data: string) => void;
+  makeUrlToRequest: () => string;
 };
 type Child = {
   children: ReactNode;
@@ -16,9 +17,13 @@ export const ToggleBtnProvider = ({ children }: Child) => {
   const [yieldBtn, setYieldBtn] = useState("bruto");
   const [indexing, setIndexing] = useState("pre");
 
+  const makeUrlToRequest = () => {
+    return `simulacoes/?tipoIndexacao=${indexing}&tipoRendimentp=${yieldBtn}`;
+  };
+
   return (
     <ToggleBtnContext.Provider
-      value={{ yieldBtn, indexing, setYieldBtn, setIndexing }}
+      value={{ yieldBtn, indexing, setYieldBtn, setIndexing, makeUrlToRequest }}
     >
       {children}
     </ToggleBtnContext.Provider>

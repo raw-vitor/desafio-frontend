@@ -8,15 +8,21 @@ const Home: NextPage = () => {
   return (
     <Flex
       align="center"
+      justify="center"
       direction="column"
-      h="calc(100vh - 32px)"
-      m="4"
+      h="100vh"
       bg="gray.50"
+      p={["2", "8"]}
     >
-      <Text p="6" fontWeight="bold" fontSize="24px">
+      <Text p="6" fontWeight="bold" fontSize="25px">
         Simulador de Investimentos
       </Text>
-      <Flex w="full" h="full" justify="space-around">
+      <Flex
+        w="full"
+        h="full"
+        justify={["center", "center", "space-around"]}
+        direction={["column", "column", "column", "row"]}
+      >
         <ToggleBtnProvider>
           <Simulator />
         </ToggleBtnProvider>

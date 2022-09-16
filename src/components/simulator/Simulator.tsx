@@ -13,6 +13,8 @@ import { useMoney } from "../../hooks/useMoneyMask";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useSimulations } from "../../services/react-query/queries/useSimulations";
+import { useContext } from "react";
+import { ToggleBtnContext } from "../../context/ToggleContext";
 
 export type SignInFormType = {
   yieldBtn: string;
@@ -34,9 +36,11 @@ const signInFormSchema = yup.object().shape({
 });
 
 export const Simulator = () => {
-  const { indicators } = useIndicators();
-  const { simulations, isLoading, isError, refetch } = useSimulations();
+  const { indicators, isError, isLoading: indicatirsLoading } = useIndicators();
+  const { makeUrlToRequest } = useContext(ToggleBtnContext);
+  const { isLoading, refetch } = useSimulations(makeUrlToRequest());
   const fontSize = "14px";
+  const marginBottonInputs = "20px";
   const {
     register,
     handleSubmit,
@@ -60,25 +64,40 @@ export const Simulator = () => {
     refetch();
   };
 
+  const yieldButtons = [
+    { name: "Bruto", label: "bruto" },
+    { name: "Líquido", label: "liquido" },
+  ];
+
+  const indexingButtons = [
+    { name: "PRÉ", label: "pre" },
+    { name: "POS", label: "pos" },
+    { name: "FIXADO", label: "fixado" },
+  ];
+
+  const cdiValue = indicators
+    ? indicators[0].valor + "%"
+    : "Erro ao buscar dados";
+  const ipcaValue = indicators
+    ? indicators[1].valor + "%"
+    : "Erro ao buscar dados";
+
   return (
-    <Flex direction="column">
-      <Text fontWeight="bold" fontSize="18px">
+    <Flex direction="column" align="center" mt={[8, 8, 0]}>
+      <Text mr="auto" fontWeight="bold" fontSize="23px">
         Simulador
       </Text>
       <form onSubmit={handleSubmit(handleSignIn)}>
         <Flex>
           <Flex direction="column" mb="2">
-            <FormControl>
+            <FormControl mb={marginBottonInputs}>
               <Text fontSize={fontSize}>Rendimento</Text>
-              <ToggleButton
-                items={[
-                  { name: "Bruto", label: "bruto" },
-                  { name: "Líquido", label: "liquido" },
-                ]}
-                type="yield"
-              />
+              <ToggleButton items={yieldButtons} type="yield" />
             </FormControl>
-            <FormControl isInvalid={!!errors.inicialContribution}>
+            <FormControl
+              isInvalid={!!errors.inicialContribution}
+              mb={marginBottonInputs}
+            >
               <Text
                 fontSize={fontSize}
                 color={!!errors.inicialContribution ? "red" : "black"}
@@ -101,7 +120,7 @@ export const Simulator = () => {
                 </FormErrorMessage>
               </Flex>
             </FormControl>
-            <FormControl isInvalid={!!errors.deadline}>
+            <FormControl isInvalid={!!errors.deadline} mb={marginBottonInputs}>
               <Text fontSize={fontSize}>Prazo(em meses)</Text>
               <Input
                 type="number"
@@ -112,7 +131,7 @@ export const Simulator = () => {
               />
               <FormErrorMessage>{errors.deadline?.message}</FormErrorMessage>
             </FormControl>
-            <FormControl>
+            <FormControl mb={marginBottonInputs}>
               <Text fontSize={fontSize}>IPCA(ao ano)</Text>
               <Input
                 type="text"
@@ -120,23 +139,19 @@ export const Simulator = () => {
                 bg="transparent"
                 borderBottomColor="black"
                 {...register("ipca")}
-                value={`${indicators && indicators[1].valor}%`}
+                value={ipcaValue}
               />
             </FormControl>
           </Flex>
           <Flex direction="column" ml="9" mb="2">
-            <FormControl>
+            <FormControl mb={marginBottonInputs}>
               <Text fontSize={fontSize}>Tipo de indexação</Text>
-              <ToggleButton
-                items={[
-                  { name: "PRÉ", label: "pre" },
-                  { name: "POS", label: "pos" },
-                  { name: "FIXADO", label: "fixado" },
-                ]}
-                type="indexingType"
-              />
+              <ToggleButton items={indexingButtons} type="indexingType" />
             </FormControl>
-            <FormControl isInvalid={!!errors.monthlContribution}>
+            <FormControl
+              isInvalid={!!errors.monthlContribution}
+              mb={marginBottonInputs}
+            >
               <Text fontSize={fontSize}>Aporte Mensal</Text>
               <Input
                 type="text"
@@ -152,7 +167,10 @@ export const Simulator = () => {
                 {errors.monthlContribution?.message}
               </FormErrorMessage>
             </FormControl>
-            <FormControl isInvalid={!!errors.profitability}>
+            <FormControl
+              isInvalid={!!errors.profitability}
+              mb={marginBottonInputs}
+            >
               <Text fontSize={fontSize}>Rentabilidade</Text>
               <Input
                 type="text"
@@ -165,7 +183,7 @@ export const Simulator = () => {
                 {errors.profitability?.message}
               </FormErrorMessage>
             </FormControl>
-            <FormControl>
+            <FormControl mb={marginBottonInputs}>
               <Text fontSize={fontSize}>CDI(ao ano)</Text>
               <Input
                 type="text"
@@ -173,12 +191,12 @@ export const Simulator = () => {
                 bg="transparent"
                 borderBottomColor="black"
                 {...register("cdi")}
-                value={`${indicators && indicators[0].valor}%`}
+                value={cdiValue}
               />
             </FormControl>
           </Flex>
         </Flex>
-        <Flex justify="space-around" mt="6">
+        <Flex justify="space-around" mt="6" maxW="500px">
           <Button
             size="lg"
             border="1px solid"
