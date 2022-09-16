@@ -17,17 +17,21 @@ type SimulationsReturnType = {
   valorFinalLiquido: string;
 };
 
-export const getSimulations = async (): Promise<SimulationsReturnType[]> => {
-  const response = await api.get("/simulacoes");
+export const getSimulations = async (
+  todo: string
+): Promise<SimulationsReturnType[]> => {
+  console.log("greeting: ", todo);
+  const response = await api.get(`${todo}`);
   return response.data;
 };
 
-export const useSimulations = () => {
+export const useSimulations = (todo: string) => {
   const {
     data: simulations,
     isLoading,
     isError,
     refetch,
-  } = useQuery(["simulations"], getSimulations);
-  return { simulations, isLoading, isError, refetch };
+    remove,
+  } = useQuery(["simulations", todo], () => getSimulations(todo));
+  return { simulations, isLoading, isError, refetch, remove };
 };

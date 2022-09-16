@@ -5,19 +5,18 @@ import { useSimulations } from "../../services/react-query/queries/useSimulation
 import { CardItem } from "../CardItem";
 
 export const SimulationResult = () => {
-  const { indexing, yieldBtn } = useContext(ToggleBtnContext);
-  const { simulations, isLoading, isError, refetch } = useSimulations();
+  const { indexing, yieldBtn, makeUrlToRequest } = useContext(ToggleBtnContext);
+  const { simulations, isLoading, isError, refetch } = useSimulations(
+    makeUrlToRequest()
+  );
   const filteredSimulations = simulations?.filter(
     (item) =>
       item.tipoIndexacao === indexing && item.tipoRendimento === yieldBtn
   )[0];
 
-  useEffect(() => {
-    refetch();
-  }, [indexing, yieldBtn]);
   return (
-    <Flex direction="column">
-      <Text fontSize="18px" fontWeight="bold">
+    <Flex direction="column" align="center">
+      <Text fontSize="23px" fontWeight="bold">
         Resultado da Simulação
       </Text>
       <Flex maxW="700px" flexWrap="wrap" justify="space-around" align="center">

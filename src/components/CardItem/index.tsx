@@ -1,5 +1,8 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
+import { useContext } from "react";
+import { ToggleBtnContext } from "../../context/ToggleContext";
 import { useMoney } from "../../hooks/useMoneyMask";
+import { useSimulations } from "../../services/react-query/queries/useSimulations";
 
 type CardType = {
   title: string;
@@ -10,6 +13,8 @@ type CardType = {
 
 export const CardItem = ({ title, value, green, percent }: CardType) => {
   const percentFormat = percent ? value + "%" : "R$ " + value;
+  const { makeUrlToRequest } = useContext(ToggleBtnContext);
+  const { isLoading, isError } = useSimulations(makeUrlToRequest());
 
   return (
     <Flex
@@ -23,11 +28,19 @@ export const CardItem = ({ title, value, green, percent }: CardType) => {
       rounded="md"
       boxShadow="lg"
     >
-      <Text fontWeight="bold" fontSize="14px">
+      <Text fontWeight="bold" fontSize="14px" hidden={isLoading || isError}>
         {title}
       </Text>
-      <Text fontSize="14px" color={green ? "green" : "black"}>
+      <Text
+        fontSize="14px"
+        color={green ? "green" : "black"}
+        hidden={isLoading || isError}
+      >
         {value && value > 0 ? useMoney(String(value)) : percentFormat}
+      </Text>
+      <Spinner hidden={!isLoading || isError} />
+      <Text fontSize="13px" color="red" hidden={!isError}>
+        Erro ao buscar dados
       </Text>
     </Flex>
   );

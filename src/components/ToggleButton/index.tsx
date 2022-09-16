@@ -23,11 +23,12 @@ export const ToggleButton = ({ items, type }: ToggleButtonsType) => {
   };
 
   return (
-    <Flex>
+    <Flex justify="center" w="full">
       {items &&
         items.map((item) => (
           <Button
             key={item.label}
+            w="full"
             _hover={{ bg: "orange.50" }}
             colorScheme="orange"
             border="1px solid black"
