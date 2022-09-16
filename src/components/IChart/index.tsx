@@ -48,11 +48,12 @@ export const IChart = () => {
       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       datasets: [
         {
-          label: "",
+          label: "Sem Aporte",
           data: sAporte,
           backgroundColor: ["rgb(0,0,0)"],
         },
         {
+          label: "Com Aporte",
           data: cAporte,
           backgroundColor: ["rgb(237, 142, 83)"],
         },
@@ -73,7 +74,16 @@ export const IChart = () => {
           position: "left",
         },
         legend: {
-          display: false,
+          reverse: true,
+          display: true,
+          position: "bottom",
+          align: "center",
+          usePointStyle: true,
+          rotation: 30,
+          labels: {
+            usePointStyle: true,
+            rotation: 30,
+          },
         },
       },
     });
