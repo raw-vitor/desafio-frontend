@@ -1,0 +1,78 @@
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Chart as Chartjs,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ChartData,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+import { ToggleBtnContext } from "../../context/ToggleContext";
+import { useSimulations } from "../../services/react-query/queries/useSimulations";
+
+Chartjs.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export const IChart = () => {
+  const { makeUrlToRequest } = useContext(ToggleBtnContext);
+  const { simulations } = useSimulations(makeUrlToRequest());
+  const [chartData, setChartData] = useState<ChartData>({
+    datasets: [],
+  });
+  const [cAporte, setCAporte] = useState<number[]>([]);
+  const [sAporte, setSAporte] = useState<number[]>([]);
+  const [charOptions, setCharOptions] = useState({});
+  useEffect(() => {
+    if (simulations) {
+      const comAporte: number[] = Object.values(
+        simulations && simulations[0].graficoValores.comAporte
+      );
+      const semAporte: number[] = Object.values(
+        simulations && simulations[0].graficoValores.semAporte
+      );
+      setCAporte(comAporte);
+      setSAporte(semAporte);
+    }
+  });
+  useEffect(() => {
+    setChartData({
+      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      datasets: [
+        {
+          data: cAporte,
+          backgroundColor: ["rgb(237, 142, 83)"],
+        },
+        {
+          data: sAporte,
+          backgroundColor: ["rgb(0,0,0)"],
+        },
+      ],
+    });
+    setCharOptions({
+      Responsive: true,
+      plugins: {
+        legend: {
+          display: false,
+          position: "left",
+          labels: {},
+        },
+      },
+      options: {
+        scales: {
+          yAxes: [{ ticks: { title: "a" } }],
+        },
+      },
+    });
+  }, []);
+
+  return <Bar options={charOptions} data={chartData} />;
+};
