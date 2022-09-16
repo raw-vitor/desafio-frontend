@@ -39,9 +39,11 @@ const signInFormSchema = yup.object().shape({
 export const Simulator = () => {
   const { indicators, isError, isLoading: indicatirsLoading } = useIndicators();
   const { makeUrlToRequest } = useContext(ToggleBtnContext);
-  const { isLoading, refetch } = useSimulations(makeUrlToRequest());
+  const { simulations, isLoading, refetch, remove } = useSimulations(
+    makeUrlToRequest()
+  );
   const fontSize = "14px";
-  const marginBottonInputs = "20px";
+  const marginBottonInputs = "30px";
   const {
     register,
     handleSubmit,
@@ -62,7 +64,9 @@ export const Simulator = () => {
   });
 
   const handleSignIn = () => {
+    remove();
     refetch();
+    console.log(simulations);
   };
 
   const yieldButtons = [
@@ -89,8 +93,8 @@ export const Simulator = () => {
         <Text mr="auto" fontWeight="bold" fontSize="23px">
           Simulador
         </Text>
-        <Flex>
-          <Flex direction="column" mb="2">
+        <Flex justify="center" direction={["column", "column", "row"]}>
+          <Flex direction="column" mr={[0, 0, 9]} mb="2">
             <FormControl mb={marginBottonInputs}>
               <Flex justify="space-between" mb="1">
                 <Text fontSize={fontSize}>Rendimento</Text>
@@ -147,7 +151,7 @@ export const Simulator = () => {
               />
             </FormControl>
           </Flex>
-          <Flex direction="column" ml="9" mb="2">
+          <Flex direction="column" mb="2">
             <FormControl mb={marginBottonInputs}>
               <Flex justify="space-between" mb="1">
                 <Text fontSize={fontSize}>Tipo de indexação</Text>

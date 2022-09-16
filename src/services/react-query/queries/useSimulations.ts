@@ -26,7 +26,7 @@ type ChartValues = {
 export const getSimulations = async (
   todo: string
 ): Promise<SimulationsReturnType[]> => {
-  console.log("greeting: ", todo);
+  console.log("url request: ", todo);
   const response = await api.get(`${todo}`);
   return response.data;
 };
