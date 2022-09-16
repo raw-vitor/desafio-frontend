@@ -73,6 +73,12 @@ export const IChart = () => {
           text: "Valor(R$)",
           position: "left",
         },
+        subtitle: {
+          display: true,
+          align: "center",
+          text: "Tempo(meses)",
+          postition: "bottom",
+        },
         legend: {
           reverse: true,
           display: true,

@@ -43,7 +43,7 @@ export const Simulator = () => {
     makeUrlToRequest()
   );
   const fontSize = "14px";
-  const marginBottonInputs = "20px";
+  const marginBottonInputs = "30px";
   const {
     register,
     handleSubmit,
