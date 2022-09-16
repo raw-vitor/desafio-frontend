@@ -12,7 +12,7 @@ const Home: NextPage = () => {
       direction="column"
       minH="100vh"
       bg="gray.50"
-      p={["2", "2"]}
+      p={["2", "1"]}
     >
       <Text p="2" fontWeight="bold" fontSize="25px">
         Simulador de Investimentos
