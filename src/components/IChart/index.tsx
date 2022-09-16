@@ -42,12 +42,13 @@ export const IChart = () => {
       setCAporte(comAporte);
       setSAporte(semAporte);
     }
-  }, []);
+  }, [simulations]);
   useEffect(() => {
     setChartData({
       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       datasets: [
         {
+          label: "",
           data: sAporte,
           backgroundColor: ["rgb(0,0,0)"],
         },
@@ -59,19 +60,24 @@ export const IChart = () => {
     });
     setCharOptions({
       Responsive: true,
+      manteinAspectRatio: false,
       scales: {
-        x: { stacked: true },
-        y: { stacked: true },
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, grid: { display: false }, display: false },
       },
+
       plugins: {
+        title: {
+          display: true,
+          text: "Valor(R$)",
+          position: "left",
+        },
         legend: {
           display: false,
-          position: "left",
-          labels: {},
         },
       },
     });
-  }, []);
+  }, [simulations]);
 
   return <Bar options={charOptions} data={chartData} />;
 };

@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         </ToggleBtnProvider>
         <Flex justify="center" mt="2" direction="column">
           <SimulationResult />
-          <Flex>
+          <Flex maxH="300px">
             <IChart />
           </Flex>
         </Flex>
