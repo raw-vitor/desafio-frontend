@@ -15,6 +15,12 @@ type SimulationsReturnType = {
   valorTotalInvestido: number;
   valorFinalBruto: string;
   valorFinalLiquido: string;
+  graficoValores: ChartValues;
+};
+
+type ChartValues = {
+  comAporte: number[];
+  semAporte: number[];
 };
 
 export const getSimulations = async (
@@ -30,8 +36,9 @@ export const useSimulations = (todo: string) => {
     data: simulations,
     isLoading,
     isError,
+    isSuccess,
     refetch,
     remove,
   } = useQuery(["simulations", todo], () => getSimulations(todo));
-  return { simulations, isLoading, isError, refetch, remove };
+  return { simulations, isLoading, isError, refetch, remove, isSuccess };
 };

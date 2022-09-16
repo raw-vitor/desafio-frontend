@@ -7,7 +7,6 @@ import {
   Title,
   Tooltip,
   Legend,
-  ChartDataset,
   ChartData,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
@@ -23,33 +22,38 @@ Chartjs.register(
   Legend
 );
 
-type IChartDataType = {
-  labels: string[];
-  datasets: DataSets;
-};
-type DataSets = {
-  label: string;
-  data: number[];
-  borderColor: string;
-  backgroundColor: string;
-};
 export const IChart = () => {
   const { makeUrlToRequest } = useContext(ToggleBtnContext);
   const { simulations } = useSimulations(makeUrlToRequest());
   const [chartData, setChartData] = useState<ChartData>({
     datasets: [],
   });
+  const [cAporte, setCAporte] = useState<number[]>([]);
+  const [sAporte, setSAporte] = useState<number[]>([]);
   const [charOptions, setCharOptions] = useState({});
   useEffect(() => {
-    console.log(simulations && simulations[0].graficoValores);
-  }, [simulations]);
+    if (simulations) {
+      const comAporte: number[] = Object.values(
+        simulations && simulations[0].graficoValores.comAporte
+      );
+      const semAporte: number[] = Object.values(
+        simulations && simulations[0].graficoValores.semAporte
+      );
+      setCAporte(comAporte);
+      setSAporte(semAporte);
+    }
+  });
   useEffect(() => {
     setChartData({
-      labels: [1, 2],
+      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       datasets: [
         {
-          data: [65, 59, 80, 81, 56, 55, 40],
+          data: cAporte,
           backgroundColor: ["rgb(237, 142, 83)"],
+        },
+        {
+          data: sAporte,
+          backgroundColor: ["rgb(0,0,0)"],
         },
       ],
     });
@@ -58,7 +62,13 @@ export const IChart = () => {
       plugins: {
         legend: {
           display: false,
-          position: "top",
+          position: "left",
+          labels: {},
+        },
+      },
+      options: {
+        scales: {
+          yAxes: [{ ticks: { title: "a" } }],
         },
       },
     });
