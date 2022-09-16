@@ -1,6 +1,8 @@
 import { Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import { SimulationResult } from "../components/SimulationResult";
 import { Simulator } from "../components/simulator/Simulator";
+import { ToggleBtnProvider } from "../context/ToggleContext";
 
 const Home: NextPage = () => {
   return (
@@ -11,11 +13,15 @@ const Home: NextPage = () => {
       m="4"
       bg="gray.50"
     >
-      <Text p="6">Simulador de Investimentos</Text>
+      <Text p="6" fontWeight="bold" fontSize="24px">
+        Simulador de Investimentos
+      </Text>
       <Flex w="full" h="full" justify="space-around">
-        <Simulator />
+        <ToggleBtnProvider>
+          <Simulator />
+        </ToggleBtnProvider>
         <Flex>
-          <Text>Resultado da Simulação</Text>
+          <SimulationResult />
         </Flex>
       </Flex>
     </Flex>
