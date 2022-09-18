@@ -10,8 +10,10 @@ type CardType = {
 };
 
 export const CardItem = ({ title, value, green, percent }: CardType) => {
-  const { isLoading, isError } = useSimulations();
+  const { isLoading } = useSimulations();
   const percentFormat = percent ? value + "%" : "R$ " + value;
+
+  const hidden = isLoading || (!value && value != 0);
 
   return (
     <Flex
@@ -25,18 +27,14 @@ export const CardItem = ({ title, value, green, percent }: CardType) => {
       rounded="md"
       boxShadow="lg"
     >
-      <Text fontWeight="bold" fontSize="14px" hidden={isLoading || isError}>
+      <Text fontWeight="bold" fontSize="14px" hidden={hidden}>
         {title}
       </Text>
-      <Text
-        fontSize="14px"
-        color={green ? "green" : "black"}
-        hidden={isLoading || isError}
-      >
+      <Text fontSize="14px" color={green ? "green" : "black"} hidden={hidden}>
         {value && value > 0 ? useMoney(String(value)) : percentFormat}
       </Text>
-      <Spinner hidden={!isLoading || isError} />
-      <Text fontSize="13px" color="red" hidden={!isError}>
+      <Spinner hidden={!isLoading} />
+      <Text fontSize="13px" color="red" hidden={!hidden}>
         Erro ao buscar dados
       </Text>
     </Flex>
