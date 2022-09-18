@@ -8,11 +8,11 @@ import { ToggleBtnProvider } from "../context/ToggleContext";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <ToggleBtnProvider>
+      <ToggleBtnProvider>
+        <QueryClientProvider client={queryClient}>
           <Component {...pageProps} />
-        </ToggleBtnProvider>
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </ToggleBtnProvider>
     </ChakraProvider>
   );
 }

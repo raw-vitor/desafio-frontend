@@ -3,7 +3,6 @@ import type { NextPage } from "next";
 import { IChart } from "../components/IChart";
 import { SimulationResult } from "../components/SimulationResult";
 import { Simulator } from "../components/simulator/Simulator";
-import { ToggleBtnProvider } from "../context/ToggleContext";
 
 const Home: NextPage = () => {
   return (
@@ -23,9 +22,7 @@ const Home: NextPage = () => {
         justify={["center", "center", "space-around"]}
         direction={["column", "column", "column", "row"]}
       >
-        <ToggleBtnProvider>
-          <Simulator />
-        </ToggleBtnProvider>
+        <Simulator />
         <Flex justify="center" mt="2" direction="column">
           <SimulationResult />
           <Flex maxH="300px">

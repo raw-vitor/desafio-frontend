@@ -1,9 +1,11 @@
-import { useMutation, useQuery } from "react-query";
+import { useContext } from "react";
+import { useQuery } from "react-query";
+import { ToggleBtnContext } from "../../../context/ToggleContext";
 import { api } from "../../api/api";
 
 type useSimulationsType = {
   yieldBtn: string;
-  indexingType: string;
+  indexing: string;
 };
 
 type SimulationsReturnType = {
@@ -23,15 +25,18 @@ type ChartValues = {
   semAporte: number[];
 };
 
-export const getSimulations = async (
-  todo: string
-): Promise<SimulationsReturnType[]> => {
-  console.log("url request: ", todo);
-  const response = await api.get(`${todo}`);
-  return response.data;
+export const getSimulations = async ({
+  yieldBtn,
+  indexing,
+}: useSimulationsType): Promise<SimulationsReturnType> => {
+  const response = await api.get(
+    `simulacoes/?tipoIndexacao=${indexing}&tipoRendimento=${yieldBtn}`
+  );
+  return response.data[0];
 };
 
-export const useSimulations = (todo: string) => {
+export const useSimulations = () => {
+  const { indexing, yieldBtn } = useContext(ToggleBtnContext);
   const {
     data: simulations,
     isLoading,
@@ -39,6 +44,9 @@ export const useSimulations = (todo: string) => {
     isSuccess,
     refetch,
     remove,
-  } = useQuery(["simulations", todo], () => getSimulations(todo));
+  } = useQuery(["simulations", { indexing, yieldBtn }], () =>
+    getSimulations({ indexing, yieldBtn })
+  );
+
   return { simulations, isLoading, isError, refetch, remove, isSuccess };
 };
