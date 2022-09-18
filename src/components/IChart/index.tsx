@@ -8,10 +8,8 @@ import {
   Tooltip,
   Legend,
   ChartData,
-  ChartType,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { ToggleBtnContext } from "../../context/ToggleContext";
 import { useSimulations } from "../../services/react-query/queries/useSimulations";
 
 Chartjs.register(

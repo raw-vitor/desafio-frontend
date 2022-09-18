@@ -38,7 +38,6 @@ const signInFormSchema = yup.object().shape({
 
 export const Simulator = () => {
   const { indicators, isError, isLoading: indicatirsLoading } = useIndicators();
-  const { makeUrlToRequest } = useContext(ToggleBtnContext);
   const { simulations, isLoading, refetch } = useSimulations();
   const fontSize = "14px";
   const marginBottonInputs = "30px";
