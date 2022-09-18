@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Chart as Chartjs,
   CategoryScale,
@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
   ChartData,
+  ChartType,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { ToggleBtnContext } from "../../context/ToggleContext";
@@ -23,29 +24,41 @@ Chartjs.register(
 );
 
 export const IChart = () => {
-  const { makeUrlToRequest } = useContext(ToggleBtnContext);
-  const { simulations } = useSimulations(makeUrlToRequest());
+  const { simulations } = useSimulations();
   const [chartData, setChartData] = useState<ChartData>({
     datasets: [],
   });
   const [cAporte, setCAporte] = useState<number[]>([]);
   const [sAporte, setSAporte] = useState<number[]>([]);
   const [charOptions, setCharOptions] = useState({});
-  useEffect(() => {
+
+  const getData = () => {
     if (simulations) {
       const comAporte: number[] = Object.values(
-        simulations && simulations[0].graficoValores.comAporte
+        simulations && simulations.graficoValores.comAporte
       );
       const semAporte: number[] = Object.values(
-        simulations && simulations[0].graficoValores.semAporte
+        simulations && simulations.graficoValores.semAporte
       );
       setCAporte(comAporte);
       setSAporte(semAporte);
     }
-  }, [simulations]);
+  };
+
   useEffect(() => {
     setChartData({
-      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      labels: [
+        "1 mês",
+        "2 meses",
+        "3 meses",
+        "4 meses",
+        "5 meses",
+        "6 meses",
+        "7 meses",
+        "8 meses",
+        "9 meses",
+        "10 meses",
+      ],
       datasets: [
         {
           label: "Sem Aporte",
@@ -60,6 +73,7 @@ export const IChart = () => {
       ],
     });
     setCharOptions({
+      type: "bar",
       Responsive: true,
       manteinAspectRatio: false,
       scales: {
@@ -93,6 +107,7 @@ export const IChart = () => {
         },
       },
     });
+    getData();
   }, [simulations]);
 
   return <Bar options={charOptions} data={chartData} />;

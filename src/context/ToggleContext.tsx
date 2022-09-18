@@ -18,7 +18,7 @@ export const ToggleBtnProvider = ({ children }: Child) => {
   const [indexing, setIndexing] = useState("pre");
 
   const makeUrlToRequest = () => {
-    return `simulacoes/?tipoIndexacao=${indexing}&tipoRendimentp=${yieldBtn}`;
+    return `simulacoes/?tipoIndexacao=${indexing}&tipoRendimento=${yieldBtn}`;
   };
 
   return (

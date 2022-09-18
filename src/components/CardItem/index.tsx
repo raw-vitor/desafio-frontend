@@ -1,6 +1,4 @@
-import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
-import { useContext } from "react";
-import { ToggleBtnContext } from "../../context/ToggleContext";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { useMoney } from "../../hooks/useMoneyMask";
 import { useSimulations } from "../../services/react-query/queries/useSimulations";
 
@@ -12,9 +10,8 @@ type CardType = {
 };
 
 export const CardItem = ({ title, value, green, percent }: CardType) => {
+  const { isLoading, isError } = useSimulations();
   const percentFormat = percent ? value + "%" : "R$ " + value;
-  const { makeUrlToRequest } = useContext(ToggleBtnContext);
-  const { isLoading, isError } = useSimulations(makeUrlToRequest());
 
   return (
     <Flex
